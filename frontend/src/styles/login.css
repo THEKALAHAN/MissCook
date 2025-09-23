@@ -1,0 +1,109 @@
+.login-body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    background: #fff3f3;
+    min-height: 100vh;
+}
+.login-content{
+     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* padding: 20px; */
+    background: #fff3f3;
+    min-height: 90vh;
+}
+
+.return-botton{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 2rem;
+    color: #a97e84;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.return-icon {
+    height: auto;
+    transform: rotate(180deg);
+}
+
+/* .return-icon:hover{
+    color: #54363a;
+    transform: scale(1.6);
+    transform: rotate(180deg);
+} */
+
+.login-icon{
+    display: block;
+    margin-top: 0px;
+    height: 204px;
+    padding-top: 0px;
+    text-align: center;
+    unicode-bidi: isolate;
+    width: 300px
+
+}
+.login-title {
+    font-family: fantasy;
+    margin-bottom: 25px;
+    color: #a97e84;
+    padding: 20px 25px;
+    border-radius: 12px;
+    font-size: 1.5em;
+}
+input::placeholder{
+    color:  #a97e84;
+    font-family: fantasy;
+    opacity: 1;
+    font-size: 14;
+    font-weight: 30;
+}
+.login-input-box{
+    background-color: #eec6c8;
+    border-radius: 25px;
+    padding: 20px 25px;
+    margin-bottom: 25px;
+    border: none;
+    font-weight: 100;
+    font-family: fantasy;
+    width: 350px;
+}
+
+.login-links{
+    display: flex;
+    flex-direction: column;
+    color: #270808;
+    text-decoration: none;
+    font-family: fantasy;
+    font-size: 0.7em;
+    align-items: end;
+}
+
+
+.login-links:hover{
+    text-decoration: underline;
+}
+
+.login-button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-family: fantasy;
+    background: #54363a;
+    color: #eec6c8;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    width: 350px;
+}
+
+.login-button:hover {
+    text-decoration: underline;
+    background: #a97e84;
+    color: white;
+}
