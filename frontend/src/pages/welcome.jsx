@@ -18,6 +18,7 @@ export function Welcome() {
               <img src={MisscookIcon} className='welcome-icon' alt="Cooking Icon" />
           </div>
           <div className='welcome-title'>Generador de recetas AI</div>
+
           <div className='welcome-text'>La mejor IA de Cocina. Introduce ingredientes y obtén recetas con nuestra IA de recetas.</div>
           <div className="welcome-example">
               Por ejemplo; desayuno con huevos y tomate
