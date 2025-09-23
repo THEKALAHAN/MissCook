@@ -1,8 +1,15 @@
 import React from 'react';
 import '../styles/welcome.css';
+import { useNavigate } from 'react-router-dom';
 import MisscookIcon from '../assets/MisscookOff.png';
 
+
 export function Welcome() {
+
+  const navigate=useNavigate();
+
+  const goToLogin = () => {navigate('/login');};
+
   return (
     <div className="content">
         <div className="welcome-icon-container">
@@ -13,7 +20,7 @@ export function Welcome() {
         <div className="welcome-example">
             Por ejemplo; desayuno con huevos y tomate
         </div>
-        <button className='welcome-button'>Empezar</button>
+        <button onClick={goToLogin} className='welcome-button'>Empezar</button>
     </div>
   );
 }
