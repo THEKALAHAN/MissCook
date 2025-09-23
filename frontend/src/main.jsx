@@ -11,3 +11,4 @@ root.render(
     <Welcome />
   </React.Fragment>
 )
+
