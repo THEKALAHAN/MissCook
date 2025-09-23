@@ -1,26 +1,32 @@
-import MisscookIcon from '../assets/MisscookOff.png';
-import '../styles/login.css';
-import React from 'react'
-
+import MisscookIcon from "../assets/MisscookOff.png";
+import "../styles/login.css";
+import React from "react";
+import { Link } from "react-router-dom";
+import { TbSend2 } from "react-icons/tb";
 
 export function NewPassword() {
   return (
-    <div className='login-content'>
-
-        <div><img className='login-icon' src={MisscookIcon} alt="Misscook-icon" /></div> 
-        <div className='login-title '>Crea una nueva contraseña</div>
+    <div className="login-body">
+      <div className="return-botton">
+        <Link to="/login">
+            <TbSend2 size="2rem" className="return-icon" />
+        </Link>
+      </div>
+      <div className="login-content">
+        <div>
+          <img className="login-icon" src={MisscookIcon} alt="Misscook-icon" />
+        </div>
+        <div className="login-title ">Crea una nueva contraseña</div>
         <form action="">
-            <input type="password" placeholder='Ingresa tu contraseña' className='login-input-box'
-            />
-            <br />
-
-            <input type="password"  placeholder='Confirma tu contraseña' className='login-input-box'
-            />
-            <br />
-            <button className='login-button' type='submit' >Enviar</button>
+          <input type="password" placeholder="Ingresa tu contraseña" className="login-input-box" />
+          <br />
+          <input type="password" placeholder="Confirma tu contraseña" className="login-input-box" />
+          <br />
+          <button className="login-button" type="submit">
+            Enviar
+          </button>
         </form>
-
-        
+      </div>
     </div>
-  )
+  );
 }
