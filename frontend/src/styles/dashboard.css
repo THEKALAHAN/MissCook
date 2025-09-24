@@ -1,0 +1,33 @@
+.dashboard-content{
+   display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    /* padding: 20px; */
+    background: #fff3f3;
+}
+
+.slidebar{
+    width: 100px;
+    height: 100vh;
+    background-color: #592f38;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+
+}
+
+.dash-icon {
+    width: 200px;
+    height: auto;
+    margin-bottom: -40px;
+}
+
+.dash-icon1{
+    width: 300px;
+    height: auto;
+    margin-bottom: -40px;
+}
