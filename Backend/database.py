@@ -2,14 +2,14 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
 # Cambia estos valores por los de tu servidor SQL Server
-SERVER = "PABLO-LEAL\SQLEXPRESS"       # o IP / nombre de servidor
+SERVER = "DESKTOP-1EHEETF\SQLEXPRESS"       # o IP / nombre de servidor
 DATABASE = "Misscook"
 # USERNAME = "root"
 # PASSWORD = ""
 
 # Cadena de conexión con pyodbc
 DATABASE_URL = (
-    "mssql+pyodbc://@PABLO-LEAL\\SQLEXPRESS/Misscook"
+    "mssql+pyodbc://@DESKTOP-1EHEETF\SQLEXPRESS/Misscook"
     "?driver=ODBC+Driver+17+for+SQL+Server"
     "&trusted_connection=yes"
 )
