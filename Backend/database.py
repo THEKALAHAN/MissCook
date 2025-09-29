@@ -1,8 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-# Cambia estos valores por los de tu servidor SQL Server
-SERVER = "PABLO-LEAL\SQLEXPRESS"       # o IP / nombre de servidor
+SERVER = "PABLO-LEAL\SQLEXPRESS"
 DATABASE = "Misscook"
 # USERNAME = "root"
 # PASSWORD = ""
