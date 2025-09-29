@@ -17,4 +17,15 @@ class UsuarioOut(UsuarioBase):
     id_usuario: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
+
+class LoginRequest(BaseModel):
+    correo: str
+    contrasena: str
+
+class RegisterRequest(BaseModel):
+    id_usuario: int
+    token: str
+    nombre_usuario: str
+    correo: str
+    contrasena: str

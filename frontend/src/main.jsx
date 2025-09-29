@@ -7,6 +7,7 @@ import { Login } from './pages/login';
 import { Register } from './pages/register';
 import {NewPassword} from './pages/newPassword'
 import {ReturnPassword} from './pages/returnPassword'
+import { Dashboard } from './pages/dashboard';
 
 const root = createRoot(document.getElementById('root'));
 
@@ -20,6 +21,7 @@ root.render(
       <Route path='/register' element={<Register/>}/>
        <Route path='/newpassword' element={<NewPassword/>}/>
        <Route path='/returnPassword' element={<ReturnPassword/>}/>
+       <Route path='/dashboard' element={<Dashboard/>}/>
     </Routes>
     </BrowserRouter>
   </React.StrictMode>
