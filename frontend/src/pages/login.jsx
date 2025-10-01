@@ -30,7 +30,7 @@ export function Login() {
 
       localStorage.setItem("usuario", data.usuario);
 
-      navigate("/dashboard");
+      navigate("/chat");
     } catch (error) {
       console.error("Error en login:", error);
       alert("Ocurrió un error en el servidor");
@@ -58,9 +58,9 @@ export function Login() {
               ¿Es tu primera vez? Regístrate
             </Link>
             <br />
-            <Link to="/returnPassword" className="login-links">
+            {/* <Link to="/returnPassword" className="login-links">
               ¿Has olvidado tu contraseña?
-            </Link>
+            </Link> */}
             <br />
             <button type="submit" className="login-button">
               Iniciar sesión

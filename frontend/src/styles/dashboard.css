@@ -1,15 +1,24 @@
-.dashboard-content{
-   display: flex;
+.dashboard-body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: #fff3f3;
+    min-height: 100vh;
+    display: flex;
+
+}
+
+.dashboard-content {
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    width: 80vw;
     text-align: center;
-    /* padding: 20px; */
     background: #fff3f3;
 }
 
-.slidebar{
+.slidebar {
     width: 100px;
     height: 100vh;
     background-color: #592f38;
@@ -20,14 +29,40 @@
 
 }
 
-.dash-icon {
-    width: 200px;
+.dashboard-icon {
+    width: 600px;
     height: auto;
-    margin-bottom: -40px;
+    margin-top: -50px;
 }
 
-.dash-icon1{
-    width: 300px;
-    height: auto;
-    margin-bottom: -40px;
+
+.chat-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.dashboard-chat .chat-input {
+    width: 400px;
+    padding: 10px;
+    border: none;
+    border-radius: 25px;
+    margin-right: 10px;
+    background-color: #eec6c8;
+    color: #592f38;
+    padding: 15px 25px;
+
+}
+
+.dashboard-chat .chat-button {
+    border: none;
+    border-radius: 50px;
+    margin-right: 10px;
+    background-color: #a97e84;
+    color: #5b2f36;
+    font-size: 25px;
+    padding: 10px 25px;
+    cursor: pointer;
 }
