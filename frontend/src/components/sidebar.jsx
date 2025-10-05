@@ -12,8 +12,8 @@ export default function MySidebar() {
         collapsed={collapsed}
         rootStyles={{
           [`.${sidebarClasses.container}`]: {
-            backgroundColor: "#592f38", // color del sidebar
-            color: "#fff", // texto
+            backgroundColor: "#592f38",
+            color: "#fff",
             height: "100vh",
             collapsedWidth: "80px",
             display: "flex",
@@ -31,10 +31,6 @@ export default function MySidebar() {
           }}
         >
           <MenuItem icon={<FaBars />} onClick={() => setCollapsed(!collapsed)}></MenuItem>
-          <MenuItem icon={<FaHome />}>
-            {collapsed ? "" : "Dashboard"}
-            <Link to="/dashboard" />
-          </MenuItem>
         </Menu>
         <Menu
           style={{ marginTop: "auto" }}

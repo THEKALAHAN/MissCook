@@ -34,6 +34,7 @@ export function Register() {
       alert("❌ Las contraseñas no coinciden.");
       return;
     }
+    console.log("📩 Enviando contraseña:", contrasena);
 
     try {
       const response = await fetch("http://127.0.0.1:8000/register", {

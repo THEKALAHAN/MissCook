@@ -13,6 +13,8 @@ import secrets # Para generar tokens
 from datetime import datetime, timedelta
 from fastapi_mail import FastMail, MessageSchema, ConnectionConfig # Necesario para enviar correos
 from fastapi.responses import HTMLResponse
+from security import hash_password
+from security import verify_password
 
 # ---------------------
 # CONFIGURACIÓN GENERAL Y CORREO
@@ -69,9 +71,6 @@ class ChatResponse(BaseModel):
 # ---------------------
 # FUNCIÓN DE SEGURIDAD (Manejo de Contraseña - ¡REEMPLAZAR!)
 # ---------------------
-def hash_password(password: str) -> str:
-    # 🚨 ADVERTENCIA: Esta es una simulación. ¡Usa passlib.hash.bcrypt!
-    return password
 
 # ---------------------
 # RUTA DE REGISTRO CON VERIFICACIÓN DE CORREO (REEMPLAZA LA RUTA ANTERIOR)
@@ -92,9 +91,9 @@ async def register(usuario: RegisterRequest, db: Session = Depends(get_db)):
         correo=usuario.correo,
         contrasena=hashed_password,
         # Asumimos que el modelo Usuario tiene ahora un campo 'token' (quizás para sesiones)
-        token=usuario.token if hasattr(usuario, 'token') else None, 
+        token=secrets.token_urlsafe(32),
         
-        # ✅ CAMPOS DE VERIFICACIÓN (CRUCIALES)
+        # CAMPOS DE VERIFICACIÓN (CRUCIALES)
         is_active=False, 
         email_verification_token=verification_token,
         token_creation_time=datetime.utcnow()
@@ -128,8 +127,8 @@ async def register(usuario: RegisterRequest, db: Session = Depends(get_db)):
     except Exception as e:
         print(f"Error al enviar correo: {e}")
         # Notificar al usuario sin detener el registro
-    
-    return {"message": "Registro exitoso. Revisa tu correo electrónico para activar tu cuenta."}
+    # return {hash_password}
+    return {"message": "Registro exitoso. Revisa tu correo electrónico para activar tu cuenta." }
 
 # ---------------------
 # NUEVA RUTA DE VERIFICACIÓN DE CORREO
@@ -169,13 +168,12 @@ def login(data: LoginRequest, db: Session = Depends(get_db)):
     if not usuario:
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
 
-    # 🚨 CLAVE: Verificar si la cuenta está activa
     if not usuario.is_active:
          raise HTTPException(status_code=403, detail="Cuenta inactiva. Por favor, verifica tu correo electrónico.")
 
-    if usuario.contrasena != contrasena:
-        raise HTTPException(status_code=401, detail="Contraseña incorrecta")
-
+    if not verify_password(contrasena, usuario.contrasena):
+        raise HTTPException(status_code=400, detail="Correo o contraseña incorrectos")
+    
     return {"message": "Login exitoso", "usuario": usuario.correo}
 
 
