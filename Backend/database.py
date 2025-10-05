@@ -1,11 +1,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-SERVER = "SANTIAGO\\SQLEXPRESS"   
+SERVER = "PABLO-LEAL\SQLEXPRESS"
 DATABASE = "Misscook"
 
 DATABASE_URL = (
-    f"mssql+pyodbc://@{SERVER}/{DATABASE}"
+    "mssql+pyodbc://@PABLO-LEAL\\SQLEXPRESS/Misscook"
     "?driver=ODBC+Driver+17+for+SQL+Server"
     "&trusted_connection=yes"
 )
