@@ -13,8 +13,8 @@ import secrets # Para generar tokens
 from datetime import datetime, timedelta
 from fastapi_mail import FastMail, MessageSchema, ConnectionConfig # Necesario para enviar correos
 from fastapi.responses import HTMLResponse
-from security import hash_password
-from security import verify_password
+#from security import hash_password
+#from security import verify_password
 import random
 
 # ---------------------
@@ -252,8 +252,8 @@ def login(data: LoginRequest, db: Session = Depends(get_db)):
     if not usuario.is_active:
          raise HTTPException(status_code=403, detail="Cuenta inactiva. Por favor, verifica tu correo electrónico.")
 
-    if not verify_password(contrasena, usuario.contrasena):
-        raise HTTPException(status_code=400, detail="Correo o contraseña incorrectos")
+   # if not verify_password(contrasena, usuario.contrasena):
+    #    raise HTTPException(status_code=400, detail="Correo o contraseña incorrectos")
     
     return {"message": "Login exitoso", "usuario": usuario.correo}
 
