@@ -1,8 +1,8 @@
-from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi import FastAPI, Depends, HTTPException, status, BackgroundTasks
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine, Base
 from models import Usuario # Asumimos que Usuario tiene ahora los campos de verificación
-from schemas import UsuarioCreate, UsuarioOut, RegisterRequest, LoginRequest
+from schemas import UsuarioCreate, UsuarioOut, RegisterRequest, LoginRequest, CodigoVerificacionRequest, EmailRequest
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 import os
@@ -15,6 +15,7 @@ from fastapi_mail import FastMail, MessageSchema, ConnectionConfig # Necesario p
 from fastapi.responses import HTMLResponse
 from security import hash_password
 from security import verify_password
+import random
 
 # ---------------------
 # CONFIGURACIÓN GENERAL Y CORREO
@@ -72,6 +73,86 @@ class ChatResponse(BaseModel):
 # FUNCIÓN DE SEGURIDAD (Manejo de Contraseña - ¡REEMPLAZAR!)
 # ---------------------
 
+
+#-----------------------------------
+#Recuperar contraseñas
+#------------------------------------------
+fm1= FastMail(conf)
+
+
+def generar_codigo():
+    return str(random.randint(100000, 999999))
+
+       
+@app.post("/recuperar_contra")
+async def recuperar_contra(request: EmailRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
+    usuario = db.query(Usuario).filter(Usuario.correo == request.email).first()
+
+
+    if not usuario:
+        raise HTTPException(status_code=404, detail="Correo no encontrado")
+
+
+    # Generar y guardar el código
+    codigo = generar_codigo()
+    usuario.codigo = codigo
+    usuario.expiracion_codigo = datetime.utcnow() + timedelta(minutes=10)
+    db.commit()
+
+
+    # Crear mensaje de correo
+    message = MessageSchema(
+        subject="Código de Recuperación - Miss Cook AI",
+        recipients=[request.email],
+        body=f"""
+        <html>
+            <body>
+                <h2>Recuperación de contraseña en Miss Cook AI</h2>
+                <p>Tu código de recuperación es:</p>
+                <h1>{codigo}</h1>
+                <p>Este código vence en 10 minutos.</p>
+            </body>
+        </html>
+        """,
+        subtype="html"
+    )
+
+
+    # Enviar correo en segundo plano
+    background_tasks.add_task(fm1.send_message, message)
+
+
+    return {"msg": "Código enviado correctamente"}
+
+
+
+
+#----------Verificacion si es igual-----------
+@app.post("/verificar_codigo")
+async def verificar_codigo(request: CodigoVerificacionRequest, db: Session = Depends(get_db)):
+    usuario = db.query(Usuario).filter(Usuario.correo == request.email).first()
+
+
+    if not usuario:
+        raise HTTPException(status_code=404, detail="Correo no encontrado")
+
+
+    # Verificar si coincide
+    if usuario.codigo != request.codigo:
+        raise HTTPException(status_code=400, detail="Código incorrecto")
+
+
+    # Verificar si el código no ha expirado
+    if usuario.expiracion_codigo < datetime.utcnow():
+        raise HTTPException(status_code=400, detail="El código ha expirado")
+
+
+    # Si todo está bien, se puede permitir cambiar contraseña
+    return {"msg": "Código verificado correctamente. Puedes restablecer tu contraseña."}
+
+
+
+
 # ---------------------
 # RUTA DE REGISTRO CON VERIFICACIÓN DE CORREO (REEMPLAZA LA RUTA ANTERIOR)
 # ---------------------
@@ -82,14 +163,14 @@ async def register(usuario: RegisterRequest, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="El correo ya está registrado")
     
     # 1. Hashea la contraseña y crea el token
-    hashed_password = hash_password(usuario.contrasena)
+    #hashed_password = hash_password(usuario.contrasena)
     verification_token = secrets.token_urlsafe(32)
     
     # 2. Crea el usuario en la DB con is_active=False y guarda los tokens
     nuevo_usuario = Usuario(
         nombre_usuario=usuario.nombre_usuario,
         correo=usuario.correo,
-        contrasena=hashed_password,
+        contrasena=usuario.contrasena,
         # Asumimos que el modelo Usuario tiene ahora un campo 'token' (quizás para sesiones)
         token=secrets.token_urlsafe(32),
         

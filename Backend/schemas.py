@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from typing import Optional # ¡CRUCIAL para campos que pueden ser None!
 from datetime import datetime # Necesaria para el campo de tiempo
 
@@ -51,3 +51,10 @@ class RegisterRequest(BaseModel):
     edad: Optional[int] = None
     peso: Optional[float] = None
     altura: Optional[int] = None
+    
+class EmailRequest(BaseModel):
+    email: EmailStr
+    
+class CodigoVerificacionRequest(BaseModel):
+    email: EmailStr
+    codigo: str

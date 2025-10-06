@@ -22,3 +22,7 @@ class Usuario(Base):
     
     # Tiempo para la expiración del token (establecido al momento del registro)
     token_creation_time = Column(DateTime, default=datetime.utcnow, nullable=True) 
+    
+    codigo = Column(String, nullable=True)
+    
+    expiracion_codigo = Column(DateTime, nullable=True)
